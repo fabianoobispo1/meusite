@@ -5,7 +5,20 @@ export type Item = {
 }
 
 export const demos: { key: number; name: string; items: Item[] }[] = [
+
   {
+    key: 1,
+    name: 'Transações',
+    items: [
+      {
+        name: 'Cadastrar',
+        slug: 'fa/transacao/registrar',
+        description: 'Registrar nova transacao',
+      },
+    ],
+  },
+
+ /*  {
     key: 1,
     name: 'toDos',
     items: [
@@ -15,7 +28,7 @@ export const demos: { key: number; name: string; items: Item[] }[] = [
         description: 'Listar todos os todos ',
       },
     ],
-  },
+  }, */
   /*   {
     key: 2,
     name: 'itens',

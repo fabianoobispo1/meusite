@@ -3,9 +3,10 @@
 import { useState } from "react"
 import { api } from "../data/api"
 import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
-export function FormRegister() {
-  const [nomeBorda, setNomeBorda] = useState('border-gray-200')
+export function FormRegisterTransacao() {
+  const [tituloBorda, setTituloBorda] = useState('border-gray-200')
   const [emailBorda, setEmailBorda] = useState('border-gray-200')
   const [nascimentoBorda, setNascimentoBorda] = useState('border-gray-200')
   const [passwordBorda, setPasswordBorda] = useState('border-gray-200')
@@ -13,17 +14,18 @@ export function FormRegister() {
   const router = useRouter()
 
   async function handleRegsiter(form: FormData){
-    setNomeBorda('border-gray-200')
+    setTituloBorda('border-gray-200')
     setEmailBorda('border-gray-200')
     setNascimentoBorda('border-gray-200')
     setPasswordBorda('border-gray-200')
 
-    const nome = form.get('grid-name')
+    const titulo = form.get('grid-titulo')
     const email = form.get('grid-email')
     const nasciemnto = form.get('grid-nascimento')+'T00:00:00.000Z'
     const password = form.get('grid-password')
-    if(!nome ) {
-      setNomeBorda('border-red-300') 
+    if(!titulo ) {
+      setTituloBorda('border-red-300') 
+      toast.error('Campo titulo vazio')
     return 
     }
     if(!email ) {
@@ -44,7 +46,7 @@ export function FormRegister() {
 
       
     await api('/fausuario', {method: 'POST',headers:{"Content-Type": "application/json"}, body: JSON.stringify({
-      nome,
+      titulo,
       data_nascimento:nasciemnto,
       email,
       password
@@ -54,23 +56,25 @@ export function FormRegister() {
   }
 
   return(
-    <div className="w-3/4 rounded-lg bg-slate-400 p-3.5 lg:p-6 w-40S">
+    <div className=" rounded-lg bg-slate-400 p-3.5 lg:p-6 w-40S">
 
     <form className="  " action={handleRegsiter} method='POST'>
     <div className="flex flex-wrap -mx-3 mb-6">
-      <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+
+      <div className="w-full md:w-2/2 px-3 mb-6 md:mb-0">
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
-          Nome
+          Titulo
         </label>
         <input 
-          className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${nomeBorda} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
-          name='grid-name'
+          className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${tituloBorda} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white`}
+          name='grid-titulo'
           type="text"
-           /* placeholder="Seu nome" */ 
+           /* placeholder="Seu titulo" */ 
           />
         {/* <p className="text-red-500 text-xs italic">Please fill out this field.</p> */}
       </div>
-      <div className="w-full md:w-1/2 px-3">
+
+      <div className="w-full md:w-1/3 px-3">
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
           Email
         </label>
@@ -80,10 +84,10 @@ export function FormRegister() {
           type="text" 
           placeholder="" 
         />
+
+        
       </div>
-    </div>
-    <div className="flex flex-wrap -mx-3 mb-6">      
-      <div className="w-full md:w-1/2  px-3">
+      <div className="w-full md:w-1/3  px-3">
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
           Data nascimento
         </label>
@@ -95,18 +99,19 @@ export function FormRegister() {
        
       </div>
 
-      <div className="w-full md:w-1/2  px-3">
+      <div className="w-full md:w-1/3  px-3">
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
-          Senha
+          Data nascimento
         </label>
         <input 
-          className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${passwordBorda} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
-          name="grid-password" 
-          type="password" 
-          placeholder="******************" />
-        <p className="text-gray-600 text-xs italic">Minimo de 6 caracteres entre letras e numeros</p>
+          className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${nascimentoBorda} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
+          name="grid-nascimento" 
+          type="date" 
+        />
+       
       </div>
     </div>
+
  {/*    <div className="flex flex-wrap -mx-3 mb-2">
       <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" >
@@ -138,12 +143,12 @@ export function FormRegister() {
     </div> */}
 
     <div className="flex items-center justify-between">
-    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"  onClick={() =>{router.push('/')}}>
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"  onClick={() =>{router.push('/dashboard')}}>
           Voltar
         </button>      
 
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"   type="submit">
-          Cadastrar
+          Registrar Transação
         </button>      
     </div>
   </form>

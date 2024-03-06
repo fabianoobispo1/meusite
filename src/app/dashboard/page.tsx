@@ -14,13 +14,9 @@ export default  function Dashboard() {
   if (!token) {
     router.push('/');
   }
-
-
-
-
   return (
     <div className="rounded-lg bg-slate-400 p-3.5 lg:p-6">
-     <h1>Dashboard</h1>
+     <h1>Pagina inicial logada </h1>
      <p>{user?.nome}</p>
 
      <button onClick={()=>{signOut()}}>sair</button>

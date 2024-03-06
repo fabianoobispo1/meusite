@@ -2,6 +2,7 @@
 
 import { useContext } from "react"
 import { AuthContext } from "../contexts/AuthContext"
+import toast from "react-hot-toast";
 
 export function FormLogin() {
   const { signIn } = useContext(AuthContext)
@@ -11,11 +12,11 @@ export function FormLogin() {
     const email = form.get('grid-email')
     const password = form.get('grid-password')
     if(!email ) {
-     
+      toast.error('Email Vazio'); 
     return 
     }
     if(!password ) {
-   
+      toast.error('Senha Vazio');
     return 
     }
 
@@ -45,9 +46,9 @@ export function FormLogin() {
         </button>
    
         <div className="flex items-center flex-col">
-          <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+       {/*    <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
             Esqueeceu a Senha?
-          </a>
+          </a> */}
           <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/registrar">
             Cadastrar
           </a>

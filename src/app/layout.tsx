@@ -5,7 +5,7 @@ import { Byline } from './components/byline'
 import "./globals.css";
 import { GlobalNav } from "./components/global-nav";
 import { AuthProvider } from "./contexts/AuthContext";
-
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -33,7 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable}`}>
       <body className="overflow-y-scroll bg-[url('/grid.svg')] pb-36">
-       <AuthProvider>          
+       <AuthProvider>      
+       <Toaster position="bottom-center" />    
           <GlobalNav /> 
           {}
           <div className="lg:pl-72">
@@ -43,7 +44,7 @@ export default function RootLayout({
               </div> */}
               <div className="bg-vc-border-gradient rounded-lg p-px shadow-lg shadow-black/0">
                 {/* <div className="rounded-lg bg-black p-3.5 lg:p-6"> */}
-
+                
                 {children}
                 {/* </div> */}
               </div>

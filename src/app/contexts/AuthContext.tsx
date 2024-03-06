@@ -6,6 +6,7 @@ import { api } from "../data/api";
 
 
 import { User } from "phosphor-react";
+import toast from "react-hot-toast";
 
 type User = {
   id: string;
@@ -37,7 +38,11 @@ const [isAuthenticated, setIsAuthenticated] = useState(false)
     useEffect(() => {
       const { 'nextauth.token': token } = parseCookies()
       if (token) {
-        api('/faperfil', {method: 'GET',headers:{"Content-Type": "application/json", 'Authorization': 'Bearer '+token }} )
+        api('/faperfil', {method: 'GET',headers:{
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer '+token
+        
+        }} )
         .then((response) => response.json())
         .then((data) =>{
           setUser(data.faUsuario)
@@ -56,6 +61,7 @@ const [isAuthenticated, setIsAuthenticated] = useState(false)
     })} )
 
     if (result.status !== 200){
+      toast.error('Usuario/senha Invalidos')
       return 400
     }
 
@@ -67,8 +73,8 @@ const [isAuthenticated, setIsAuthenticated] = useState(false)
 
 
     setCookie(undefined, 'nextauth.token', token, {
-      /* maxAge: 60 * 60 * 1, // 1 hour */
-      maxAge:  60 , // 1 hour
+      maxAge: 60 * 60 * 1, // 1 hour
+     /*  maxAge:  60 * 5, // 10 min */
     })
 
     const resultUser =  await api('/faperfil', {method: 'GET',headers:{"Content-Type": "application/json", 'Authorization': 'Bearer '+token }} )
